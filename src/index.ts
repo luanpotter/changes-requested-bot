@@ -1,15 +1,22 @@
-import { Probot } from "probot";
+import { Probot, Context } from "probot";
+import { ChangesRequestedBot } from "./bot";
+import { DefaultConfig } from "./config";
+
+const appName = 'changes-requested-bot';
+const configFile = `${appName}.yaml`;
 
 export = (app: Probot) => {
   app.on("issues.opened", async (context) => {
-    const issueComment = context.issue({
-      body: "Thanks for opening this issue!",
-    });
-    await context.octokit.issues.createComment(issueComment);
+    const bot = await makeBot(context);
+    bot?.handleIssueOpened();
   });
-  // For more information on building apps:
-  // https://probot.github.io/docs/
 
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
+  const makeBot = async (context: Context): Promise<ChangesRequestedBot | undefined> => {
+    const config = await context.config(configFile);
+    if (config) {
+      const configWithDefaults = Object.assign({}, DefaultConfig, config);
+      return new ChangesRequestedBot(context, configWithDefaults, app.log);
+    }
+    return undefined;
+  };
 };
