@@ -1,3 +1,5 @@
+⚠️ **deprecated** I eventually figure it was easier to make a Github Action, check [this repo](https://github.com/luanpotter/changes-requested) instead. ⚠️
+
 # changes-requested-bot
 
 > A GitHub App built with [Probot](https://github.com/probot/probot) that Simple automation for a GitHub changes-requested workflow
