@@ -1,0 +1,6 @@
+# Configuration for changes-requested-bot - https://github.com/luanpotter/changes-requested-bot
+
+daysUntilClose: 5
+dryRun: false
+triggerLabel: changes-requested
+closingComment: sample comment
